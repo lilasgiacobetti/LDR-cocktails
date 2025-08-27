@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LDR • Questionnaire</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== PAGE 1 — AGE GATE ===== -->
+  <div id="agegate" class="gate" role="dialog" aria-modal="true" aria-labelledby="ag-title">
+    <div class="ag-wrapper">
+      <img class="ag-logo" src="Logo-LDR.jpeg" alt="Logo LDR" />
+
+      <div class="agegate-modal">
+        <h2 id="ag-title" class="ag-display">QUEL COCKTAIL?</h2>
+        <p class="ag-sub">Êtes-vous majeur?</p>
+
+        <div class="ag-buttons">
+          <button class="ag-btn yes" id="btnYes" type="button">OUI</button>
+          <a class="ag-btn no" href="https://alcool-info-service.fr" target="_blank" rel="noopener">NON</a>
+        </div>
+
+        <p class="legal-notice">
+          L'accès à ce site est strictement réservé aux personnes majeures. <br />
+          L'abus d'alcool est dangereux pour la santé, à consommer avec modération
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE 2 — HERO SPLIT ===== -->
+  <main id="page2-hero" class="is-hidden">
+    <section class="hero">
+      <div class="hero__text">
+        <p class="eyebrow">Quel Cocktail?</p>
+        <h1 class="hero__title">
+          Une sélection de cocktails,avec<br />
+          ou sans alcool.
+        </h1>
+
+        <p class="hero__lead">
+         1. Répondre au quizz
+<br> 2. Analyse des préférences
+<br> 3. Sélection de recettes personnalisées
+        </p>
+        <p class="hero__lead">
+
+        </p>
+
+        <div class="hero__cta">
+        <a href="#" class="btn-pill" id="goNext">GO !</a>
+        </div>
+      </div>
+
+      <figure class="hero__media">
+        <!-- remplace par ton image -->
+        <img src="page2.png" alt="Two cocktails served on a bar" />
+      </figure>
+    </section>
+  </main>
+
+  <!-- ===== PAGE 3 — QUIZ ===== -->
+  <section id="quiz" class="quiz-shell is-hidden">
+    <!-- Colonne gauche : questions -->
+    <div class="panel" aria-live="polite">
+      <button type="button" class="back" aria-label="Revenir à l'étape précédente">← Retour</button>
+      <p class="eyebrow">QUEL COCKTAIL?</p>
+      <h1 class="title" id="quiz-title">Question</h1>
+
+      <div class="options" role="group" aria-labelledby="quiz-title"></div>
+      <div class="actions">
+        <button class="cta" disabled title="Sélectionnez d’abord une option">Continuer</button>
+      </div>
+    </div>
+    <!-- Colonne droite : image -->
+    <aside class="media">
+      <img src="quizz.png" alt="Cocktails" />
+    </aside>
+  </section>
+
+  <!-- ===== FOOTER LÉGAL ===== -->
+  <footer class="footer-legal">
+    L’abus d’alcool est dangereux pour la santé. À consommer avec modération.
+  </footer>
+
+  <!-- Ton JS (redirige vers recipe.html quand un résultat est trouvé) -->
+  <script src="script.js" defer></script>
+</body>
+</html>

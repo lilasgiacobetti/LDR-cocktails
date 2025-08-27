@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recette</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ==== RECETTE — layout façon “Old Fashioned card” ==== */
+    .recipe-wrap{max-width:1100px;margin:28px auto;padding:0 16px}
+    .recipe-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .recipe-back{appearance:none;border:1px solid #e6e0dc;background:#fff;border-radius:999px;padding:6px 12px;font-size:.9rem;cursor:pointer}
+    .recipe-eyebrow{letter-spacing:.12em;text-transform:uppercase;font-weight:700;font-size:12px;color:#6b6b6b;margin:0}
+    .recipe-title{font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;font-weight:800;
+      font-size:clamp(28px,4.8vw,56px);line-height:1.06;margin:2px 0 0}
+
+    .recipe-two-col{
+      display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start
+    }
+    .recipe-visual{
+      border-radius:20px;overflow:hidden;background:#f3eee9;
+      box-shadow:0 12px 38px rgba(0,0,0,.12)
+    }
+    .recipe-visual img{display:block;width:100%;height:100%;object-fit:cover;max-height:min(72vh,720px)}
+
+    .recipe-card{
+      background:#fff;border:1.5px solid #e6e1db;border-radius:20px;
+      padding:22px;box-shadow:0 10px 28px rgba(0,0,0,.10)
+    }
+    .recipe-card h2{
+      font-size:clamp(18px,2.2vw,22px);margin:0 0 8px;
+      text-transform:none;font-weight:800;letter-spacing:.02em
+    }
+    .recipe-list{margin:0;padding-left:18px;line-height:1.55}
+    .recipe-section{margin-top:18px}
+    .recipe-actions{margin-top:18px}
+    .btn{appearance:none;border:none;border-radius:999px;padding:10px 16px;cursor:pointer}
+    .btn-primary{background:#702632;color:#fff}
+
+    .recipe-caption{opacity:.6;font-size:.9rem;margin-top:6px}
+
+    @media (max-width: 860px){
+      .recipe-two-col{grid-template-columns:1fr;gap:16px}
+      .recipe-visual img{max-height:52vh}
+    }
+  </style>
+</head>
+<body>
+  <main class="recipe-wrap" aria-live="polite">
+    <div class="recipe-top">
+      <button class="recipe-back" type="button" id="backBtn">← Retour au quiz</button>
+      <div>
+        <p class="recipe-eyebrow">Recette</p>
+        <h1 class="recipe-title" id="recipeTitle">—</h1>
+      </div>
+    </div>
+
+    <section class="recipe-two-col">
+      <!-- Image à gauche -->
+      <figure class="recipe-visual">
+        <img id="recipeImg" alt="Photo du cocktail" src="img/placeholder-recipe.jpg" />
+      </figure>
+
+      <!-- Carte à droite -->
+      <article class="recipe-card">
+        <div class="recipe-section">
+          <h2>Ingrédients</h2>
+          <ul id="ingredients" class="recipe-list"><li>Chargement…</li></ul>
+        </div>
+
+        <div class="recipe-section">
+          <h2>Préparation</h2>
+          <p id="instructions">Chargement…</p>
+        </div>
+
+        <div class="recipe-actions">
+          <button class="btn btn-primary" id="againBtn">Recommencer</button>
+        </div>
+      </article>
+    </section>
+
+    <figcaption class="recipe-caption">Image modifiable (placer vos visuels dans <code>img/recipes/</code>)</figcaption>
+  </main>
+
+  <script>
+    // Utils
+    const norm = s => (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+    const slug = s => norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+
+    // Base embarquée (mets tes recettes ici)
+    const RECIPES = {
+      "Tangy Tonic": { ingredients:"12 cl Double Dutch Indian Tonic\n2 cl jus de citron vert\nGlaçons", preparation:"Verser sur glace. Presser un quartier de citron vert. Servir." },
+      "Virgin Bellini": { ingredients:"12 cl jus de pêche\n6 cl eau pétillante\nGlaçons", preparation:"Verser délicatement au verre. Remuer. Servir frais." },
+      "Virgin To": { ingredients:"12 cl Double Dutch Tonic\n2 cl sirop simple\nTranche de concombre\nGlaçons", preparation:"Verser sur glace. Remuer délicatement. Garnir." },
+      "Ginger Lime": { ingredients:"12 cl Ginger Beer\n2 cl jus de citron vert\nGlaçons", preparation:"Verser sur glace. Remuer. Garnir de citron vert." },
+
+      "Pa-no-ma": { ingredients:"12 cl soda pamplemousse\n2 cl jus de citron vert\nPincée de sel\nGlaçons", preparation:"Remuer sur glace. Servir." },
+      "Med Orchard": { ingredients:"10 cl soda pomme/poire\n2 cl sirop de romarin\nGlaçons", preparation:"Verser au verre. Remuer. Garnir romarin." },
+      "Cucumber Collins": { ingredients:"4 cl gin\n2 cl jus de citron\n1 cl sirop\nAllonger eau gazeuse\nGlaçons", preparation:"Shaker (sauf eau). Filtrer. Allonger." },
+      "Ginger Spice": { ingredients:"4 cl spiritueux base rhum\n12 cl ginger ale\nQuartier de citron\nGlaçons", preparation:"Verser sur glace. Remuer." },
+
+      "Sevilla Spritz": { ingredients:"5 cl spiritueux à l’orange amère\n8 cl tonic\nTranche d’orange\nGlaçons", preparation:"Construire au verre ballon. Remuer." },
+      "Tropical Fizz": { ingredients:"4 cl vodka\n2 cl sirop passion\n12 cl soda\nGlaçons", preparation:"Verser sur glace. Remuer délicatement." },
+      "Gin To": { ingredients:"5 cl gin\n12 cl tonic\nZeste de citron\nGlaçons", preparation:"Construire au verre. Garnir." },
+      "Martini": { ingredients:"6 cl vodka\n1 cl vermouth sec\nZeste/cornichon", preparation:"Remuer au verre à mélange. Filtrer en coupe." },
+      "Espresso Martini": { ingredients:"4 cl vodka\n3 cl café espresso\n2 cl liqueur de café\n1 cl sirop", preparation:"Shaker fort. Filtrer fin en coupe." },
+      "Irish Spice": { ingredients:"4 cl whisky irlandais\n12 cl ginger ale\nQuartier de citron\nGlaçons", preparation:"Verser sur glace. Remuer." },
+      "Dutch Mule": { ingredients:"5 cl vodka\n12 cl ginger beer\n2 cl jus de citron vert\nGlaçons", preparation:"Construire en mug. Remuer." },
+
+      "Guayaba": { ingredients:"5 cl spiritueux (rhum/vodka)\n10 cl nectar goyave\n2 cl citron vert\nGlaçons", preparation:"Shaker. Filtrer sur glace." },
+      "Boulevardier": { ingredients:"3 cl whisky\n3 cl vermouth rouge\n3 cl bitter italien\nZeste d’orange", preparation:"Remuer. Verre old fashioned, gros glaçon." },
+      "Whisky Sour": { ingredients:"5 cl whisky\n3 cl citron\n2 cl sirop\n(blanc d’œuf optionnel)", preparation:"Dry shake si blanc d’œuf, puis glace. Filtrer." },
+      "Matcha Latte": { ingredients:"2 g matcha\n10 cl lait (ou végétal)\n2 cl sirop", preparation:"Fouetter le matcha. Ajouter lait frais et sirop." },
+      "Spicy Martini Chai Latte": { ingredients:"4 cl vodka\n8 cl chai latte froid\n1 cl sirop épicé", preparation:"Shaker. Filtrer en coupe." },
+      "Irish Coffee": { ingredients:"4 cl whisky irlandais\n8 cl café chaud\n1-2 cl sucre\nCrème fouettée", preparation:"Dissoudre sucre dans café + whisky. Coiffer de crème." },
+      "Pistachio Martini": { ingredients:"4 cl vodka\n3 cl liqueur pistache\n2 cl crème\nGlace", preparation:"Shaker fort. Filtrer en coupe." },
+      "Latte Speculos": { ingredients:"8 cl lait chaud\n4 cl café\n2 cl sirop spéculoos", preparation:"Mélanger chaud. Mousser si souhaité." },
+
+      "Pink Citrus Collins": { ingredients:"4 cl gin\n2 cl citron\n1 cl sirop\n6-8 cl soda pamplemousse\nGlaçons", preparation:"Shaker (sans soda). Filtrer. Allonger." },
+      "Grapefruit Sour": { ingredients:"5 cl vodka\n2 cl citron\n2 cl sirop\n3 cl pamplemousse", preparation:"Shaker. Filtrer sur glace." },
+      "Hurrican": { ingredients:"5 cl spiritueux base rhum\n5 cl jus fruits de la passion\n3 cl orange\n2 cl sirop grenadine", preparation:"Shaker. Verre tulipe, glace." },
+      "Margarita": { ingredients:"5 cl tequila\n2 cl triple sec\n2 cl citron vert\nSel de bord (option)", preparation:"Shaker. Filtrer en coupe/sur glace." },
+      "Berry Fizz": { ingredients:"4 cl gin\n2 cl citron\n2 cl sirop fruits rouges\n8 cl soda", preparation:"Shaker (sans soda). Allonger. Remuer." },
+      "Cosmopolitan": { ingredients:"4 cl vodka\n2 cl triple sec\n3 cl cranberry\n1 cl citron vert", preparation:"Shaker. Filtrer en coupe." },
+      "Mai Tai": { ingredients:"3 cl rhum ambré\n3 cl rhum brun\n1.5 cl curaçao\n2 cl citron vert\n1 cl orgeat\n0.5 cl sirop", preparation:"Shaker bref. Verre tiki, glace pilée." },
+      "Pimm’s Lemonade": { ingredients:"5 cl Pimm’s\n10 cl limonade\nFruits & concombre\nGlaçons", preparation:"Construire au verre. Garnir généreusement." },
+      "South Side": { ingredients:"5 cl gin\n2 cl citron vert\n2 cl sirop\nFeuilles de menthe\nGlaçons", preparation:"Shaker avec menthe. Filtrer fin en coupe." },
+      "Mojito": { ingredients:"5 cl rhum\n2 cl citron vert\n2 cl sirop\nMenthe\nAllonger eau gazeuse\nGlaçons", preparation:"Piler menthe + citron + sirop. Glace. Rhum. Allonger." }
+    };
+
+    // Boutons
+    document.getElementById('backBtn').onclick  = ()=> location.href = 'index.html#quiz';
+    document.getElementById('againBtn').onclick = ()=> location.href = 'index.html';
+
+    // Rendu
+    (function render(){
+      const qs = new URLSearchParams(location.search);
+      const wanted = qs.get('name') || '';
+
+      const titleEl = document.getElementById('recipeTitle');
+      const ingEl   = document.getElementById('ingredients');
+      const prepEl  = document.getElementById('instructions');
+      const imgEl   = document.getElementById('recipeImg');
+
+      const key = Object.keys(RECIPES).find(k => norm(k) === norm(wanted));
+      const rec = key ? RECIPES[key] : null;
+
+      titleEl.textContent = key || (wanted || 'Recette');
+
+      if (!rec){
+        ingEl.innerHTML = '<li>Recette introuvable dans la base.</li>';
+        prepEl.textContent = '—';
+        imgEl.src = 'img/placeholder-recipe.jpg';
+        return;
+      }
+
+      // Ingrédients
+      const items = String(rec.ingredients || '')
+        .replace(/[\u2028\u2029]/g,'\n')
+        .split(/\r?\n|•|;|,/).map(s=>s.trim()).filter(Boolean);
+      ingEl.innerHTML = items.length ? items.map(i=>`<li>${i}</li>`).join('') : '<li>—</li>';
+
+      // Instructions (garde les retours à la ligne)
+      const prep = String(rec.preparation || '').replace(/\r\n?/g,'\n').trim();
+      prepEl.innerHTML = prep ? prep.split('\n').map(l=>l.trim()).join('<br>') : '—';
+
+      // Image: slug auto -> img/recipes/<slug>.jpg (fallback placeholder)
+      const guess = 'img/recipes/' + slug(key || wanted) + '.jpg';
+      imgEl.src = guess;
+      imgEl.onerror = () => { imgEl.onerror = null; imgEl.src = 'img/placeholder-recipe.jpg'; };
+
+      try{ window.scrollTo({ top:0, behavior:'smooth' }); }catch(_){}
+    })();
+  </script>
+</body>
+</html>
