@@ -152,7 +152,7 @@ window.FLOW = {
   ], nextMap:{
     agrume:{ result:"Whisky Sour" },
     herbace:{ result:"Matcha Latte" },
-    epice:{ result:"Spicy Martini Chai Latte" },
+    epice:{ result:"Spicy Martini" },
     torrefie:{ result:"Irish Coffee" },
     sucre:{ next:"q5_onct_sucre_temp" }
   }},
