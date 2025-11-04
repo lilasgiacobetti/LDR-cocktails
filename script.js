@@ -49,7 +49,11 @@
 // =====================
 //  FLOW (arborescence du quiz)
 // =====================
+// =====================
+// FLOW (arborescence du quiz) — corrigé (intitulés alignés avec recipe.html)
+// =====================
 window.FLOW = {
+  // ----- Q1
   q1: { id:"q1", title:"Cocktail avec ou sans alcool ?", options:[
     { label:"Sans alcool", value:"sans" },
     { label:"Avec alcool", value:"avec" }
@@ -58,7 +62,7 @@ window.FLOW = {
   // ----- SANS -----
   q2_sans:{ id:"q2_sans", title:"Difficulté de la préparation ?", options:[
     { label:"Facile / rapide", value:"facile" },
-    { label:"Élaborée (+3 ingrédients)", value:"elab" }
+    { label:"Élaborée", value:"elab" }
   ], next:(v)=> (v==="facile" ? "q3_sans_facile" : "q3_sans_elab") },
 
   q3_sans_facile:{ id:"q3_sans_facile", title:"Quel profil aromatique ?", options:[
@@ -66,19 +70,29 @@ window.FLOW = {
     { label:"Sucré / fruité",  value:"sucre" },
     { label:"Herbacé",         value:"herbace" },
     { label:"Épicé",           value:"epice" }
-  ], resultMap:{ agrume:"Tangy Tonic", sucre:"Virgin Bellini", herbace:"Virgin To", epice:"Ginger Lime" } },
+  ], resultMap:{
+    agrume:"Tangy Tonic",
+    sucre:"Virgin Bellini",
+    herbace:"Virgin To",
+    epice:"Ginger Lime"
+  }},
 
   q3_sans_elab:{ id:"q3_sans_elab", title:"Quel profil aromatique ?", options:[
     { label:"Acidulé / Agrume", value:"agrume" },
     { label:"Sucré / fruité",  value:"sucre" },
     { label:"Herbacé",         value:"herbace" },
     { label:"Épicé",           value:"epice" }
-  ], resultMap:{ agrume:"Pa-no-ma", sucre:"Med Orchard", herbace:"Cucumber Collins", epice:"Ginger Spice" } },
+  ], resultMap:{
+    agrume:"Pa-no-ma",
+    sucre:"Med Orchard",
+    herbace:"Cucumber Collins",
+    epice:"Ginger Spice"
+  }},
 
   // ----- AVEC -----
   q2_avec:{ id:"q2_avec", title:"Difficulté de la préparation ?", options:[
     { label:"Facile / rapide", value:"facile" },
-    { label:"Élaborée (+3 ingrédients)", value:"elab" }
+    { label:"Élaborée", value:"elab" }
   ], next:(v)=> (v==="facile" ? "q3_avec_facile" : "q3_avec_elab") },
 
   // AVEC + FACILE
@@ -89,25 +103,71 @@ window.FLOW = {
     { label:"Torréfié",        value:"torrefie" },
     { label:"Épicé",           value:"epice" }
   ], nextMap:{
-    agrume:{ result:"Sevilla Spritz" },
-    sucre:{ result:"Tropical Fizz" },
-    herbace:{ next:"q4_base_herbace_facile" },
-    torrefie:{ result:"Espresso Martini" },
-    epice:{ next:"q4_base_epice_facile" }
+    agrume:   { next:"q4_base_agrume_facile" },
+    sucre:    { next:"q4_base_sucre_facile" },
+    herbace:  { next:"q4_base_herbace_facile" },
+    torrefie: { next:"q4_base_torrifie_facile" },
+    epice:    { next:"q4_base_epice_facile" }
   }},
 
+  // FACILE → AGRUME
+  q4_base_agrume_facile:{ id:"q4_base_agrume_facile", title:"Base spiritueuse ?", options:[
+    { label:"Gin", value:"gin" },
+    { label:"Vodka", value:"vodka" },
+    { label:"Whisky", value:"whisky" },
+    { label:"Spiritueux à base de rhum", value:"rhum_base" }
+  ], resultMap:{
+    vodka:"Vodka Gimlet",
+    gin:"Gimlet",
+    whisky:"Whisky Sour",
+    rhum_base:"Daiquiri"
+  }},
+
+  // FACILE → SUCRÉ
+  q4_base_sucre_facile:{ id:"q4_base_sucre_facile", title:"Base spiritueuse ?", options:[
+    { label:"Gin", value:"gin" },
+    { label:"Whisky", value:"whisky" },
+    { label:"Spiritueux à base de rhum", value:"rhum_base" }
+  ], resultMap:{
+    whisky:"Godfather",
+    gin:"Pink Lady",
+    rhum_base:"Cuba Libre"
+  }},
+
+  // FACILE → HERBACÉ
   q4_base_herbace_facile:{ id:"q4_base_herbace_facile", title:"Base spiritueuse ?", options:[
     { label:"Gin", value:"gin" },
-    { label:"Vodka", value:"vodka" }
-  ], resultMap:{ gin:"Gin To", vodka:"Martini" } },
-
-  q4_base_epice_facile:{ id:"q4_base_epice_facile", title:"Base spiritueuse ?", options:[
     { label:"Whisky", value:"whisky" },
-    { label:"Spiritueux à base de rhum", value:"rhum" },
-    { label:"Vodka", value:"vodka" }
-  ], resultMap:{ whisky:"Irish Spice", rhum:"Ginger Spice", vodka:"Dutch Mule" } },
+    { label:"Spiritueux à base de rhum", value:"rhum_base" }
+  ], resultMap:{
+    whisky:"Johnnie & Lemon",
+    gin:"Gin Tonic",
+    rhum_base:"Mojito"
+  }},
 
-  // AVEC + ELAB
+  // FACILE → TORRÉFIÉ
+  q4_base_torrifie_facile:{ id:"q4_base_torrifie_facile", title:"Base spiritueuse ?", options:[
+    { label:"Whisky", value:"whisky" },
+    { label:"Vodka", value:"vodka" }
+  ], resultMap:{
+    whisky:"Irish Coffee",
+    vodka:"Espresso Martini"
+  }},
+
+  // FACILE → ÉPICÉ
+  q4_base_epice_facile:{ id:"q4_base_epice_facile", title:"Base spiritueuse ?", options:[
+    { label:"Rhum", value:"rhum" },
+    { label:"Vodka", value:"vodka" },
+    { label:"Whisky", value:"whisky" },
+    { label:"Spiritueux à base de rhum", value:"rhum_base" }
+  ], resultMap:{
+    vodka:"Dutch Mule",
+    rhum:"Dark & Stormy",
+    whisky:"Irish Spice",
+    rhum_base:"Ginger Spice"
+  }},
+
+  // AVEC + ÉLABORÉ
   q3_avec_elab:{ id:"q3_avec_elab", title:"Quel profil aromatique ?", options:[
     { label:"Acidulé / Agrume", value:"agrume" },
     { label:"Sucré / fruité",  value:"sucre" },
@@ -119,30 +179,97 @@ window.FLOW = {
     agrume:{ next:"q4_base_agrume_elab" },
     sucre:{ next:"q4_base_sucre_elab" },
     herbace:{ next:"q4_base_herbace_elab" },
-    torrefie:{ result:"Guayaba" },
-    epice:{ result:"Boulevardier" },
+    torrefie:{ next:"q4_base_torrifie_elab" },
+    epice:{ next:"q4_base_epice_elab" },
     onctueux:{ next:"q4_onctueux" }
   }},
 
+  // ÉLAB → AGRUME (avec Q5)
   q4_base_agrume_elab:{ id:"q4_base_agrume_elab", title:"Base spiritueuse ?", options:[
     { label:"Gin", value:"gin" },
     { label:"Vodka", value:"vodka" },
-    { label:"Spiritueux à base de rhum", value:"rhum" },
+    { label:"Whisky", value:"whisky" },
     { label:"Tequila", value:"tequila" }
-  ], resultMap:{ gin:"Pink Citrus Collins", vodka:"Grapefruit Sour", rhum:"Hurrican", tequila:"Margarita" } },
+  ], nextMap:{
+    vodka:{ result:"Grapefruit Sour" },
+    gin:{ next:"q5_gin_agrume" },
+    whisky:{ result:"Penicillin" },
+    tequila:{ next:"q5_tequila_agrume" }
+  }},
 
+  q5_gin_agrume:{ id:"q5_gin_agrume", title:"Plutôt Orange de Séville ou Pamplemousse ?", options:[
+    { label:"Orange de Séville", value:"sevilla" },
+    { label:"Pamplemousse", value:"pamplemousse" }
+  ], resultMap:{
+    sevilla:"Sevilla Spritz",
+    pamplemousse:"Pink Grapefruit Collins"
+  }},
+
+  q5_tequila_agrume:{ id:"q5_tequila_agrume", title:"Plutôt Citron vert ou Pamplemousse ?", options:[
+    { label:"Citron vert", value:"citron" },
+    { label:"Pamplemousse", value:"pamplemousse" }
+  ], resultMap:{
+    citron:"Margarita",
+    pamplemousse:"Paloma"
+  }},
+
+  // ÉLAB → SUCRÉ (avec Q5 Rhum)
   q4_base_sucre_elab:{ id:"q4_base_sucre_elab", title:"Base spiritueuse ?", options:[
     { label:"Gin", value:"gin" },
     { label:"Vodka", value:"vodka" },
-    { label:"Spiritueux à base de rhum", value:"rhum" },
-    { label:"Liqueur", value:"liqueur" }
-  ], resultMap:{ gin:"Berry Fizz", vodka:"Cosmopolitan", rhum:"Mai Tai", liqueur:"Pimm’s Lemonade" } },
+    { label:"Whisky", value:"whisky" },
+    { label:"Tequila", value:"tequila" },
+    { label:"Spiritueux à base de rhum", value:"rhum_base" },
+    { label:"Rhum", value:"rhum" },
+    { label:"Pimm's", value:"pimms" },
+  ], nextMap:{
+    vodka:{ result:"Cosmopolitan" },
+    gin:{ result:"Berry Fizz" },
+    whisky:{ result:"Bramble" },
+    tequila:{ result:"El Diablo" },
+    pimms:{ result:"Pimm’s lemonade" },
+    rhum_base:{ result:"Hurrican"},
+    rhum:{ result:"Mai Tai"},
+  }},
 
+  // ÉLAB → HERBACÉ
   q4_base_herbace_elab:{ id:"q4_base_herbace_elab", title:"Base spiritueuse ?", options:[
-    { label:"Spiritueux à base de rhum", value:"rhum" },
-    { label:"Gin", value:"gin" }
-  ], resultMap:{ gin:"South Side", rhum:"Mojito" } },
+    { label:"Gin", value:"gin" },
+    { label:"Vodka", value:"vodka" },
+    { label:"Whisky", value:"whisky" },
+    { label:"Spiritueux à base de rhum", value:"rhum_base" }
+  ], resultMap:{
+    vodka:"Cucumber Dutch Mule",
+    gin:"South side",
+    whisky:"Apple and Mint Julep",
+    rhum_base:"Mojito"
+  }},
 
+  // ÉLAB → TORRÉFIÉ
+  q4_base_torrifie_elab:{ id:"q4_base_torrifie_elab", title:"Base spiritueuse ?", options:[
+    { label:"Vodka", value:"vodka" },
+    { label:"Bourbon Américain", value:"bourbon" },
+    { label:"Whiskey Irlandais", value:"whiskey" },
+    { label:"Rhum", value:"rhum" }
+  ], resultMap:{
+    vodka:"Espresso Martini",
+    bourbon:"Black Manhattan",
+    whiskey:"Nutty Irishman",
+    rhum:"Guayaba"
+  }},
+
+  // ÉLAB → ÉPICÉ
+  q4_base_epice_elab:{ id:"q4_base_epice_elab", title:"Base spiritueuse ?", options:[
+    { label:"Vodka", value:"vodka" },
+    { label:"Whisky", value:"whisky" },
+    { label:"Tequila", value:"tequila" }
+  ], resultMap:{
+    whisky:"Boulevardier",
+    vodka:"Bloody Mary",
+    tequila:"Spicy Margarita"
+  }},
+
+  // ÉLAB → ONCTUEUX
   q4_onctueux:{ id:"q4_onctueux", title:"Sous-profil onctueux ?", options:[
     { label:"Acidulé / Agrume", value:"agrume" },
     { label:"Sucré / fruité",  value:"sucre" },
@@ -161,10 +288,12 @@ window.FLOW = {
     { label:"Froid", value:"froid" },
     { label:"Chaud", value:"chaud" },
     { label:"Torréfié", value:"torrefie" }
-  ], resultMap:{ froid:"Pistachio Martini", chaud:"Latte Speculos", torrefie:"Irish Coffee" } }
+  ], resultMap:{
+    froid:"Pistachio Martini",
+    chaud:"Latte Speculos",
+    torrefie:"Irish Coffee"
+  }}
 };
-
-
 // =====================
 //  DATA — charge cocktails.json (depuis l’Excel)
 // =====================
@@ -217,6 +346,16 @@ const RecipeStore = (function(){
   'use strict';
 
   const state = { current:'q1', answers:{}, history:[] };
+  // --- helpers état (mémoire de session) ---
+  function saveQuizState(){
+    try { sessionStorage.setItem('ldr_quiz_state', JSON.stringify(state)); } catch(_){}
+  }
+  function loadQuizState(){
+    try { const raw = sessionStorage.getItem('ldr_quiz_state'); return raw ? JSON.parse(raw) : null; } catch(_){ return null; }
+  }
+  function clearQuizState(){
+    try { sessionStorage.removeItem('ldr_quiz_state'); } catch(_){}
+  }
 
   const shell     = document.getElementById('quiz');
   const panel     = shell.querySelector('.panel');
@@ -232,7 +371,7 @@ const RecipeStore = (function(){
     const step = getStep(stepId);
     if(!step){ return renderError(`Étape inconnue: ${stepId}`); }
 
-    if (opts && opts.reset){ state.answers = {}; state.history = []; }
+    if (opts && opts.reset){ state.answers = {}; state.history = []; clearQuizState(); }
 
     state.current = stepId;
     ctaBtn.disabled = true;
@@ -331,7 +470,7 @@ const RecipeStore = (function(){
 
   // ======== ÉCRAN DE RÉSULTAT ========
   function renderResult(name){
-    // Redirection vers la page recette avec le nom en query string
+    saveQuizState(); // <— mémorise la question courante + les réponses
     window.location.href = 'recipe.html?name=' + encodeURIComponent(name);
   }
 
@@ -350,22 +489,32 @@ const RecipeStore = (function(){
   // ======== Wiring du bouton GO! et du hash #quiz ========
   document.addEventListener('DOMContentLoaded', () => {
     const go = document.getElementById('goNext');
-    if (go) {
+        if (go) {
       go.addEventListener('click', (e) => {
         e.preventDefault();
+        clearQuizState(); // <— on repart de zéro si l’utilisateur clique GO
         document.getElementById('page2-hero')?.classList.add('is-hidden');
         document.getElementById('quiz')?.classList.remove('is-hidden');
         renderStep('q1', { reset: true });
-        // Optionnel : garder le hash pour pouvoir revenir directement au quiz
         try { history.replaceState(null, '', '#quiz'); } catch(_){}
       });
     }
 
-    // Si l’URL contient #quiz (ex: retour depuis la recette avec index.html#quiz)
+       // Si l’URL contient #quiz, tenter une restauration
     if (location.hash === '#quiz') {
       document.getElementById('page2-hero')?.classList.add('is-hidden');
       document.getElementById('quiz')?.classList.remove('is-hidden');
-      renderStep('q1', { reset: true });
+
+      const saved = loadQuizState();
+      if (saved && saved.current) {
+        // On restaure intégralement l’état
+        state.current = saved.current;
+        state.answers = saved.answers || {};
+        state.history = Array.isArray(saved.history) ? saved.history : ['q1'];
+        renderStep(state.current);
+      } else {
+        renderStep('q1', { reset: true });
+      }
     }
   });
 })();

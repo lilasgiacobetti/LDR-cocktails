@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
@@ -93,7 +92,7 @@
   const slug  = s => norm(s).replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 
   // Données
-  const RECIPES = {/* === tes recettes inchangées === */ 
+  const RECIPES = {/* === tes recettes === */ 
     "Tangy Tonic":{"ingredients":"- 150 ml Double Dutch Indian Tonic Water\n- 40 ml de jus de pamplemousse rose \n- 15 ml de sirop de sucre de grenadine","preparation":"1. Dans un verre highball rempli de glace pilée, ajouter les ingrédients.\n2. Décorer avec une rondelle de pamplemousse."},
     "Virgin Bellini":{"ingredients":"- 60 ml de jus/ purée de pêche\n- 10 ml de jus de citron frais \n- 100 ml de Double Dutch Skinny Tonic","preparation":"1. Dans un verre highball rempli de glace pilée, ajouter les ingrédients.\n2. Décorer avec un quartier de pêche (option)."},
     "Virgin To":{"ingredients":"- 30 ml de Tanqueray 0.0%\n- 120 ml d’Indian Tonic Water\n- Rondelle de pamplemousse frais","preparation":"1. Ajouter le Tanqueray 0.0% et le tonic dans un verre coppa rempli de glaçons.\n2. Décorer avec une rondelle de pamplemousse."},
@@ -102,34 +101,179 @@
     "Med Orchard":{"ingredients":"- 15 ml de sirop de mûres\n- 10 ml jus de citron\n- 20 ml de jus de pomme\n- 150 ml de Double Dutch Pomegranate & Basil\n- Garnir de 5 mûres","preparation":"1. Remplir le verre à highball de glaçons.\n2. Ajouter le sirop de mûre, le jus de citron et le jus de pomme.\n3. Compléter avec du Double Dutch Pomegranate & Basil.\n4. Décorer avec quelques mûres."},
     "Cucumber Collins":{"ingredients":"- 50 ml de Tanqueray 0.0%\n- 20 ml de jus de citron\n- 10 ml de sirop de sucre\n- Tonic cucumber & watermelon Double Dutch\n- Lamelle de concombre et zeste de citron","preparation":"1. Dans un shaker rempli de glaçons.\n2. Ajouter le Tanqueray 0.0%, le jus de citron et le sirop de sucre, puis shaker.\n3. Servir dans un verre highball avec des glaçon et les lamelles de concombres. Compléter avec du Double Dutch Cucumber & Watermelon Double Dutch.\n4. Décorer le verre avec le zeste de citron."},
     "Ginger spice":{"ingredients":"- 50 ml de Captain Morgan 0.0%\n- Jus de citron vert\n- Tonic Cranberry & Ginger Double Dutch\n- Cranberries fraîche et tranche de gingembre","preparation":"1. Remplir le verre de glaçons. Verser le Captain Morgan 0.0%.\n2. Presser un citron vert frais.\n3. Allonger avec du Double Dutch Cranberry & Ginger. Remuer délicatement à l’aide d’une cuillière. \n4. Décorer de cranberries et de gingembre."},
-    "Sevilla Spritz":{"ingredients":"- 30 ml de gin Tanqueray Flor de Sevilla\n- 45 ml jus d’orange\n- 45 ml Prosecco\n- 100 ml de Tonic\n- Rondelle d’orange","preparation":"1. Ajouter tous les ingrédients dans un verre coppa rempli de glaçons.\n2. Décorer avec une rondelle d’orange."},
-    "Tropical Fizz":{"ingredients":"- 40 ml de Captain Morgan Spiced Gold\n- 80 ml de jus d’ananas bien frais\n- 20 ml de sirop de passion\n- Eau gazeuse","preparation":"1. Dans un shaker rempli de glaçons, verse le Captain Morgan, le jus d’ananas et le sirop de passion. Shaker.\n2. Verser dans un verre rempli de glaçons.\n3. Allonger avec un trait d’eau gazeuse. "},
-    "Gin to":{"ingredients":"- 40 ml de gin Tanqueray London Dry\n- 200 ml d’Indian Tonic Water\n- Un quartier de citron\n- Rondelle de citron","preparation":"1. Ajouter le gin et le tonic dans un verre coppa rempli de glaçons.\n2. Presser un quartier de citron. Décorer avec une rondelle de citron."},
-    "Martini":{"ingredients":"- 30 ml Vodka Smirnoff Red\n- 7 ml de vermouth sec\n- Twist de citron\n- Une olive","preparation":"1. Dans un shaker rempli de glaçons, verser la vodka Smirnoff et le vermouth.\n2. Shaker, puis servir en filtrant dans un grand verre à martini.\n3. Décorer d’une olive."},
-    "Espresso Martini":{"ingredients":"- 30 ml Vodka Smirnoff Red\n- 20 ml Baileys expresso crème\n- 15 ml de sirop de sucre\n- Un espresso\n- 3 grains de café","preparation":"1. Dans un shaker rempli de glaçons, verser la vodka Smirnoff, la liqueur de café et l’espresso.\n2. Shaker, puis servir dans un grand verre à martini.\n3. Décorer de 3 grains de café."},
-    "Irish Spice":{"ingredients":"- 50 ml de Whiskey Roe & CO\n- 150 ml Ginger Ale Double Dutch\n- Rondelle de citron","preparation":"1. Remplir le verre à whisky de glaçons.\n2. Ajouter le whiskey.\n3. Allonger avec du Ginger Ale Double Dutch.\n4. Décorer avec une rondelle de citron."},
-    "Ginger Spice":{"ingredients":"- 50 ml de Captain Morgan\n- Jus de citron vert\n- Tonic Cranberry & Ginger Double Dutch\n- Cranberries fraîche et tranche de gingembre","preparation":"1. Remplir le verre de glaçons. Verser le Captain Morgan.\n2. Presser un citron vert frais.\n3. Allonger avec du Double Dutch Cranberry & Ginger. Remuer délicatement à l’aide d’une cuillière. \n4. Décorer de cranberries et de gingembre."},
-    "Dutch Mule":{"ingredients":"- 50 ml de Vodka Ketel One\n- 15 ml de jus de citron\n- Ginger Beer Double Dutch\n- Rondelle de citron vert et quelques feuiles de menthe","preparation":"1. Remplir le verre mule de glaçons.\n2. Ajouter la vodka, le jus de citron et allonger le tout avec du Ginger Beer Double Dutch.\n3. Mélanger délicatement à l’aide d’une cuillière.\n4. Décorer avec une rondelle de citron vert et des feuilles de menthe."},
-    "Pink citrus collins":{"ingredients":"- 40 ml de gin Tanqueray London Dry\n- 30 ml de jus de pamplemousse\n- 20 ml de jus de citron\n- 15 ml de sirop de sucre (ou sirop de grenadine pour accentuer la couleur rosée)\n- Double Dutch Pink Grapefruit","preparation":"1. Dans un shaker rempli de glaçons.\n2. Ajouter le gin, les jus de citron, pamplemousse et le sirop, puis shaker.\n3. Servir dans un grand verre rempli de glaçons, compléter avec du Double Dutch Pink Grapefruit.\n3. Décorer avec une tranche de pamplemousse rose."},
-    "Grapefruit Sour":{"ingredients":"40 ml de vodka Smirnoff Red\n30 ml jus de pamplemousse frais\n20 ml sirop de sucre\nTranche de pamplemousse rose et d’un brin de romarin\nUn blanc d’oeuf ( optionnel)","preparation":"1. Dans un shaker rempli de glaçons.\n2. Ajouter la Smirnoff, le jus de pamplemousse, le sirop de sucre et le blanc d’oeuf (optionnel), puis shaker.\n3. Décorer avec une tranche de pamplemousse rose et d’un brin de romarin."},
-    "Hurrican":{"ingredients":"- 50 ml de Captain Morgan\n- 60 ml  jus de fruit de la passion\n- 40 ml jus d’orange \n- 20 ml jus de citron vert frais\n- 10 ml sirop de grenadine","preparation":"1. Dans un shaker rempli de glaçons.\n2. Ajouter tous les ingrédients, puis shaker.\n3. Décorer avec une tranche d’orange."},
-    "Margarita":{"ingredients":"- 50 ml tequila Don Julio Reposado\n- 20 ml jus de citron vert\n- 10 ml de sirop d’agave\n- Tonic Elderflower Double Dutch\n- Zeste de citron","preparation":"1. Secouer ensemble la tequila, le jus de citron vert et le sirop d’agave.\n2. Filter dans une coupe remplie de glace (bord salé en option).\n3. Allonger de Tonic Elderflower Double Dutch. Décorer avec un zeste de citron."},
-    "Mai tai":{"ingredients":"50 ml Ron Zacapa 23\n20 ml jus de citron\n10 ml sirop d’orgeat\n10 ml liqueur d’abricot\nFeuille de menthe & rondelle de citron","preparation":"1. Verser tous les ingrédients dans un shaker.\n2. Shaker puis filtrer dans un verre highball rempli de glace pilée.\n3. Décorer avec une rondelle de citron vert et des feuilles de menthe."},
-    "Pimm’s lemonade":{"ingredients":"- 50 ml de Pimm’s No°1\n- 75 ml de limonade\n- 75 ml de Ginger Ale Double Dutch\n- 3 rondelles de concombre\n- 3 rondelles d’orange\n- Morceaux de fraise\n- Feuilles de menthe","preparation":"1. Remplir le verre highball de glaçon.\n2. Verser tous les ingrédients.\n3. Compléter avec la menthe, les fraise, l’orange et le concombre."},
-    "Berry Fizz":{"ingredients":"- 40 ml de gin Tanqueray London Dry\n- 50 ml de purée de fruits rouges \n- 20 ml de jus de citron\n- Double Dutch Cranberry & Ginger","preparation":"1. Remplir le verre highball de glaçon.\n2. Verser tous les ingrédients. Mélanger délicatement avec une cuillière\n3. Décorer avec des fruits rouges."},
-    "Cosmopolitan":{"ingredients":"- 40 ml de Vodka Ketel One\n- 20 ml de liqueur d’orange\n- 10 ml de jus de citron vert\n- 30 ml jus de canneberge","preparation":"1. Dans un shaker rempli de glaçons.\n2. Ajouter tous les ingrédients, puis shaker.\n3. Verser dans un verre à Martini. Garnir d’un zeste de citron."},
-    "Mojito":{"ingredients":"- 50 ml de Captain Morgan\n- 1/2 citron vert coupé\n- 2 c.soupe de sucre de canne\n- 3 à 8 feuilles de menthe fraîche\n- Eau gazeuse","preparation":"1. Dans un grand verre, déposer le citron, le sucre et la menthe, et écraser le tout avec un pillon.\n2. Remplir le verre de glace pilée . Ajouter le Captain Morgan et mélanger doucement à la cuillère.\n3. Décorer avec un brin de menthe et une rondelle de citron vert."},
-    "South side":{"ingredients":"- 50 ml de gin Gordon’s\n- 25 ml jus de citron\n- 15 ml de sirop de sucre\n- Eau gazeuse\n- Quartier de citron & romarin","preparation":"1. Dans un verre coppa rempli de glaçons, ajouter les ingrédients.\n2. Remuer avec une cuillière.\n3. Décorer avec un quartier de citron et branche de romarin ( optionnel)."},
-    "Guayaba":{"ingredients":"- 40 ml de rhum Zacapa 23\n- 20 ml de liqueur de café\n- 20 ml jus de goyave\n- 2 traits d’orange amère","preparation":"1. Dans un shaker, ajouter tous les ingrédients. Shaker\n2. Verser le tout dans un verre coupette."},
-    "boulevardier":{"ingredients":"- 20 ml Johnnie Walker Black Label\n- 20 ml de vermouth rouge\n- 20 ml de Bitter rouge\n- Twist d’orange","preparation":"1. Dans un shaker, ajouter tous les ingrédients. Shaker\n2. Verser le tout dans un verre à whisky.\n3. Décorer d’un twist d’orange ( optionnel)."},
-    "Whisky Sour":{"ingredients":"- 50 ml de whisky Johnnie Walker Black Label\n- 20 ml jus de citron\n- 15 ml de sirop de sucre\n- 3 traits de bitter orange amère.\n- Un blanc d’oeuf (optionnel pour l’onctuosité)","preparation":"1. Dans un shaker, ajouter tous les ingrédients. Shaker\n2. Verser le tout dans un verre à whisky."},
-    "Pistachio Martini":{"ingredients":"- 25 ml Baileys Original\n- 40 ml vodka Smirnoff Red\n- 2 boules de glaces à la pistache","preparation":"1. Dans un shaker, ajouter la glace à la pistache, la vodka et le Baileys. Shaker\n2. Verser le tout dans un verre à martini réfrigéré.\n3. Saupoudrer de framboise sechée ( optionnel)."},
-    "Latte Speculos":{"ingredients":"- 1 c.soupe de pate à tartiner Spéculos\n- 2 espressos\n- Lait (végétal ou animal)\n- 50 ml de Baileys\n- Crème fouetté\n- Spéculos","preparation":"1. Mélanger la pâte à tartiner, les cafés, le Baileys et le lait.\n2. Ajouterde la crème fouetter sur le dessus.\n3. Décorer de morceaux de spéculos."},
-    "Affogato":{"ingredients":"- 25 ml Baileys Original\n- Un espresso\n- 100 ml de glace vanille","preparation":"1. Remplir une tasse à cappucino de glace vanille. Utiliser un cuillière chaude pour creuser un puit au milieu.\n2. Faire couler un espresso.\n3. Suivi rapidement d’une touche crémeuse de liqueur Baileys."},
-    "Irish coffee":{"ingredients":"- 40 ml de whiskey Roe & co\n- 80 ml de café noir\n- 20 ml de sirop de sucre\n- 30 ml de crème liquide entière ","preparation":"1. Dans un verre (resistant à la chaleur) ajouter le whiskey, le sirop de sucre et le café.\n2. Fouetter la crème pour la rendre liquide mais pas ferme.\n3. Verser la crème à l’aide d’une cuillière au-dessus du café (afin que les deux ne se mélangent pas)."},
-    "Spicy martini":{"ingredients":"- 40 ml de Baileys Original\n- 30 ml de tequila Don Julio\n- 1 c.soupe de miel\n- Piments rouges long\n- 100 g de sucre\n- 100 ml d’eau","preparation":"1. Préparer le confit de piment. ( Faire chauffer l’eau et le sucre, jusqu’à obtention d’un sirop. Ajouter le ou les piments et laisser mijoter 15-20min à feu doux). Laisse refroidir hors du feu.\n2. Refroidir un verre à martini au congélateur. \n3. Dans un shaker rempli de glaçon, ajouter le Baileys, tequila et le miel (chaud pour une meilleure dissolution).\n4. Ajouter tous les ingrédients, puis shaker.\n5. Verser dans le verre à martini.\n6. Décorer avec le confit de piment."},
-    "Matcha Latte":{"ingredients":"- 50 ml de Baileys Original\n- 2 cuillière à café de Matcha en poudre\n- 20 à 40 ml d’eau chaude ( environ 80°)\n- 150 ml de lait (végétal ou animal)","preparation":"1. Dans un petit bol, fouetter le matcha dans l’eau chaude.\n2. Dans un verre, faire mousser le lait (froid ou chaud).\n3. Assembler le matcha, le baileys et le lait dans le verre.\n4. Décorer avec une rondelle de citron vert et des feuilles de menthe."}
-  };
+  "Whisky Sour": {ingredients: "- 50 ml de whisky Johnnie Walker Black Label\n- 25 ml de jus de citron\n- 15 ml de sirop de sucre",
+   preparation: "1. Verser le whisky, le jus de citron et le sirop de sucre dans un shaker avec des glaçons.\n2. Secouer vigoureusement pendant quelques secondes.\n3. Filtrer dans un verre à cocktail et décorer d’une tranche de citron ou d’une cerise."
+},
+"Daiquiri": {
+  ingredients: "- 50 ml de rhum blanc Pampero \n- 25 ml de jus de citron vert\n- 15 ml de sirop de sucre",
+  preparation: "1. Verser tous les ingrédients dans un shaker rempli de glaçons.\n2. Secouer énergiquement pendant quelques secondes.\n3. Filtrer et servir dans un verre à cocktail."
+},
+"Vodka Gimlet": {
+  ingredients: "- 50 ml de vodka Smirnoff Red\n- 25 ml de jus de citron vert\n- 15 ml de sirop de sucre",
+  preparation: "1. Mélanger la vodka, le jus de citron vert et le sirop de sucre dans un shaker avec des glaçons.\n2. Secouer et filtrer dans un verre à martini.\n3. Servir avec une rondelle de citron vert."
+},
+"Gimlet":{
+    ingredients: "- 40 ml de gin Tanqueray London Dry\n- 20 ml de jus de citron vert\n- 20 ml de sirop de Letchi Framboise",
+    preparation: "1. Mélanger le gin, le jus de citron vert et le sirop dans un shaker avec des glaçons.\n2. Secouer et filtrer dans un verre coupette.\n3. Servir avec des framboises."
+  },
+"Cuba Libre": {
+  ingredients: "- 50 ml de Captain Morgan\n- 120 ml de cola\n- 10 ml de jus de citron vert",
+  preparation: "1. Remplir un verre de glaçons.\n2. Ajouter le rhum et le jus de citron vert.\n3. Compléter avec le cola et remuer doucement."
+},
+"Godfather": {
+  ingredients: "- 45 ml de whisky Johnnie Walker Black Label\n- 15 ml de liqueur d’amaretto",
+  preparation: "1. Verser le whisky et l’amaretto dans un verre à whisky rempli de glaçons.\n2. Remuer doucement.\n3. Servir directement, sans garniture."
+},
+"Pink Lady": {
+  ingredients: "- 50 ml de gin Tanqueray London Dry\n- 15 ml de jus de citron\n- 10 ml de sirop de grenadine\n- (Optionnel) 1 blanc d’œuf",
+  preparation: "1. Verser le gin, le jus de citron, la grenadine et le blanc d’œuf (si utilisé) dans un shaker sans glaçons.\n2. Secouer à sec pour émulsionner.\n3. Ajouter des glaçons et secouer à nouveau.\n4. Filtrer dans un verre à cocktail."
+},
+"Johnnie & Lemon": {
+  ingredients: "- 50 ml de whisky Johnnie Walker Black Label\n- 100 ml d’eau gazeuse\n- 1 zeste de citron",
+  preparation: "1. Remplir un grand verre de glaçons.\n2. Ajouter le whisky, compléter avec l’eau gazeuse.\n3. Remuer doucement et décorer d’un zeste de citron."
+},
+"Mojito": {
+  ingredients: "- 50 ml de Captain Morgan\n- 1/2 citron vert coupé en quartiers\n- 2 c. à café de sucre\n- 6 feuilles de menthe",
+  preparation: "1. Écraser le citron vert et le sucre au fond du verre.\n2. Ajouter la menthe, le rhum et des glaçons.\n3. Compléter avec un trait d’eau gazeuse et remuer."
+},
+"Gin Tonic": {
+  ingredients: "- 50 ml de gin Tanqueray London Dry\n- 120 ml d’Indian Tonic Water\n- 1 rondelle de citron ou de concombre",
+  preparation: "1. Remplir un verre de glaçons.\n2. Verser le gin, puis le tonic.\n3. Mélanger légèrement et garnir."
+},
+"Espresso Martini": {
+  ingredients: "- 40 ml de vodka Smirnoff Red\n- 20 ml de liqueur de café\n- 30 ml de café espresso",
+  preparation: "1. Verser tous les ingrédients dans un shaker rempli de glaçons.\n2. Secouer énergiquement jusqu’à formation d’une mousse.\n3. Filtrer dans un verre à martini et garnir de grains de café."
+},
+"Irish Coffee": {
+  ingredients: "- 40 ml de whisky Roe & CO\n- 80 ml de café chaud\n- 1 c. à café de sucre brun",
+  preparation: "1. Mélanger le whisky et le sucre dans un verre résistant à la chaleur.\n2. Ajouter le café chaud et remuer.\n3. Ajouter délicatement une couche de crème fouettée."
+},
+"Dark & Stormy": {
+  ingredients: "- 50 ml de Rhum Pampero Especial\n- 100 ml de ginger beer Double Dutch\n- 10 ml de jus de citron vert",
+  preparation: "1. Remplir un verre de glaçons.\n2. Ajouter le jus de citron vert et la ginger beer.\n3. Verser le rhum par-dessus et remuer légèrement."
+},
+"Irish Spice": {
+  ingredients: "- 50 ml de Whiskey Roe & CO\n- 150 ml Ginger Ale Double Dutch\n- Rondelle de citron",
+  preparation: "1. Remplir un verre à whisky de glaçons.\n2. Ajouter le whiskey et allonger avec le Ginger Ale.\n3. Décorer d’une rondelle de citron."
+},
+"Ginger Spice": {
+  ingredients: "- 50 ml de Captain Morgan\n- Jus de citron vert\n- Tonic Cranberry & Ginger Double Dutch\n- Cranberries fraîches & tranche de gingembre",
+  preparation: "1. Remplir le verre de glaçons, verser le rhum.\n2. Presser le citron vert.\n3. Allonger au Double Dutch Cranberry & Ginger et remuer.\n4. Décorer."
+},
+"Dutch Mule": {
+  ingredients: "- 50 ml de Vodka Smirnoff Red\n- 15 ml de jus de citron\n- Ginger Beer Double Dutch\n- Rondelle de citron vert & feuilles de menthe",
+  preparation: "1. Remplir le mug de glaçons.\n2. Ajouter la vodka et le jus de citron.\n3. Compléter à la ginger beer, mélanger et décorer."
+},
+"Sevilla Spritz": {
+  ingredients: "- 30 ml de gin Tanqueray Flor de Sevilla\n- 45 ml jus d’orange\n- 45 ml Prosecco\n- 100 ml de Tonic\n- Rondelle d’orange",
+  preparation: "1. Ajouter tous les ingrédients dans un verre coppa rempli de glaçons.\n2. Décorer avec une rondelle d’orange."
+},
+"Pink Grapefruit Collins": {
+  ingredients: "- 40 ml de gin Tanqueray London Dry\n- 30 ml de jus de pamplemousse\n- 20 ml de jus de citron\n- 15 ml de sirop de sucre (ou grenadine)\n- Double Dutch Pink Grapefruit",
+  preparation: "1. Shaker le gin, les jus et le sirop avec de la glace.\n2. Verser sur glace, compléter au Double Dutch.\n3. Décorer d’une tranche de pamplemousse."
+},
+"Grapefruit Sour": {
+  ingredients: "- 40 ml de vodka Smirnoff Red\n- 30 ml de jus de pamplemousse frais\n- 20 ml de sirop de sucre\n- (Optionnel) 1 blanc d’œuf",
+  preparation: "1. Shaker avec glace.\n2. Filtrer et décorer (pamplemousse + romarin)."
+},
+"Penicillin": {
+  ingredients: "- 40 ml de whisky Johnnie Walker Black Label\n- 20 ml de miel (nature ou au gingembre)\n- 20 ml de jus de citron\n- 10 ml de scotch tourbé",
+  preparation: "1. Shaker whisky, miel et citron avec glace.\n2. Verser sur glaçons.\n3. Verser doucement le scotch tourbé par-dessus."
+},
+"Paloma": {
+  ingredients: "- 50 ml de tequila Don Julio Blanco\n- 10 ml de jus de citron vert\n- 1 pincée de sel rose\n- 100 ml de Mixer Double Dutch Pink Grapefruit\n- 1 tranche de pamplemousse rose",
+  preparation: "1. Verre highball avec glace.\n2. Ajouter tequila, jus et sel.\n3. Compléter au Mixer et remuer. Garnir."
+},
+"Margarita": {
+  ingredients: "- 50 ml tequila Don Julio Blanco\n- 20 ml jus de citron vert\n- 10 ml de sirop d’agave\n- Tonic Elderflower Double Dutch\n- Zeste de citron",
+  preparation: "1. Secouer tequila, jus, agave.\n2. Filtrer dans une coupe (bord salé en option).\n3. Allonger au Tonic Elderflower. Zeste."
+},
+"Berry Fizz": {
+  ingredients: "- 40 ml de gin Tanqueray London Dry\n- 50 ml de purée de fruits rouges\n- 20 ml de jus de citron\n- Double Dutch Cranberry & Ginger",
+  preparation: "1. Verre highball rempli de glace.\n2. Verser et mélanger délicatement.\n3. Décorer avec des fruits rouges."
+},
+"Cosmopolitan": {
+  ingredients: "- 40 ml de Vodka Smirnoff Red\n- 20 ml de liqueur d’orange\n- 10 ml de jus de citron vert\n- 30 ml de jus de canneberge",
+  preparation: "1. Shaker avec glace, filtrer en martini.\n2. Garnir d’un zeste."
+},
+"Hurrican": {
+  ingredients: "- 50 ml de Captain Morgan\n- 60 ml de jus de fruit de la passion\n- 40 ml de jus d’orange\n- 20 ml de jus de citron vert\n- 10 ml de sirop de grenadine",
+  preparation: "1. Shaker tous les ingrédients sur glace.\n2. Servir et décorer d’une tranche d’orange."
+},
+"Mai tai": {
+  ingredients: "- 50 ml Ron Zacapa 23\n- 20 ml jus de citron\n- 10 ml sirop d’orgeat\n- 10 ml liqueur d’abricot\n- Feuille de menthe & rondelle de citron",
+  preparation: "1. Shaker puis filtrer sur glace pilée.\n2. Décorer."
+},
+"Pimm’s lemonade": {
+  ingredients: "- 50 ml de Pimm’s No°1\n- 75 ml de limonade\n- 75 ml de Ginger Ale Double Dutch\n- Concombre, orange, fraise, menthe",
+  preparation: "1. Verre highball de glace.\n2. Verser tous les ingrédients.\n3. Garnir."
+},
+"Bramble": {
+  ingredients: "- 50 ml de gin Tanqueray London Dry\n- 5–10 ml de sirop de canne\n- 20 ml de jus de citron\n- 10 ml de crème de mûre",
+  preparation: "1. Shaker avec glace.\n2. Servir et napper de crème de mûre."
+},
+"El Diablo": {
+  ingredients: "- 50 ml de tequila Don Julio Blanco\n- 30 ml de jus de citron\n- 25 ml de crème de cassis\n- 100 ml de Ginger Beer Double Dutch",
+  preparation: "1. Verre highball avec glace.\n2. Tequila, citron, cassis.\n3. Compléter à la ginger beer et remuer."
+},
+"South side": {
+  ingredients: "- 50 ml de gin Gordon’s\n- 25 ml de jus de citron\n- 15 ml de sirop de sucre\n- Eau gazeuse\n- Quartier de citron & romarin",
+  preparation: "1. Verre coppa rempli de glaçons.\n2. Ajouter, remuer, décorer."
+},
+"Apple and Mint Julep": {
+  ingredients: "- 50 ml de Whiskey Bourbon Bulleit\n- 1 cuillère de sucre roux\n- 30 ml de jus de pomme\n- 8 feuilles de menthe fraîche\n- 1 trait de bitter",
+  preparation: "1. Écraser la menthe avec le sucre et le jus de pomme.\n2. Ajouter le whiskey et le bitter.\n3. Remplir de glace pilée et mélanger."
+},
+"Cucumber Dutch Mule": {
+  ingredients: "- 50 ml de vodka Smirnoff Red\n- 20 ml de jus de citron\n- 100 ml de Ginger Beer Double Dutch\n- 1 trait de bitter\n- 8 feuilles de menthe\n- 2 tranches de concombre",
+  preparation: "1. Écraser légèrement menthe et concombre.\n2. Ajouter vodka, citron, glace, secouer.\n3. Filtrer sur glace, compléter à la ginger beer et décorer."
+},
+"Guayaba": {
+  ingredients: "- 40 ml de rhum Zacapa 23\n- 20 ml de liqueur de café\n- 20 ml de jus de goyave\n- 2 traits d’orange amère",
+  preparation: "1. Shaker puis servir en coupette."
+},
+"Black Manhattan": {
+  ingredients: "- 45 ml de whiskey Bourbon Bulleit\n- 25 ml d’amaro\n- 2 traits de bitters\n- Zeste d’orange",
+  preparation: "1. Remuer au verre à mélange avec glace.\n2. Filtrer en cocktail et zester."
+},
+"Nutty Irishman": {
+  ingredients: "- 30 ml de whiskey Roe & CO\n- 30 ml de liqueur de noisette (Frangelico)\n- 30 ml de crème liquide ou crème irlandaise\n- Pincée de cacao",
+  preparation: "1. Shaker avec glace.\n2. Servir sur glace pilée en old fashioned.\n3. Saupoudrer de cacao."
+},
+    "Boulevardier":{"ingredients":"- 20 ml Johnnie Walker Black Label\n- 20 ml de vermouth rouge\n- 20 ml de Bitter rouge\n- Twist d’orange","preparation":"1. Dans un shaker, ajouter tous les ingrédients. Shaker\n2. Verser le tout dans un verre à whisky.\n3. Décorer d’un twist d’orange ( optionnel)."},
+
+"Bloody Mary": {
+  ingredients: "- 50 ml de vodka Smirnoff Red\n- 100 ml de jus de tomate\n- 10 ml de jus de citron\n- Sauce Worcestershire, Tabasco, sel, poivre",
+  preparation: "1. Verre rempli de glaçons.\n2. Ajouter ingrédients, assaisonner.\n3. Remuer, garnir d’un céleri."
+},
+"Spicy Margarita": {
+  ingredients: "- 40 ml de tequila Don Julio Blanco\n- 20 ml de triple sec\n- 20 ml de jus de citron vert\n- 2 tranches de piment frais ou 1 goutte de sirop de piment",
+  preparation: "1. Shaker sur glace.\n2. Filtrer dans un verre à margarita bordé de sel.\n3. Garnir d’une tranche de piment."
+},
+"Pistachio Martini": {
+  ingredients: "- 25 ml Baileys Original\n- 40 ml vodka Smirnoff Red\n- 2 boules de glace à la pistache",
+  preparation: "1. Shaker la glace à la pistache, la vodka et le Baileys.\n2. Verser en martini bien froid.\n3. Option : framboise séchée."
+},
+"Latte Speculos": {
+  ingredients: "- 1 c. soupe de pâte à tartiner spéculos\n- 2 espressos\n- Lait (végétal ou animal)\n- 50 ml de Baileys\n- Crème fouettée\n- Spéculos",
+  preparation: "1. Mélanger pâte, cafés, Baileys et lait.\n2. Coiffer de crème fouettée.\n3. Décorer de spéculos."
+},
+"Affogato": {
+  ingredients: "- 25 ml Baileys Original\n- 1 espresso\n- 100 ml de glace vanille",
+  preparation: "1. Remplir une tasse de glace vanille.\n2. Verser l’espresso puis un trait de Baileys."
+},
+"Irish coffee": {
+  ingredients: "- 40 ml de whiskey Roe & co\n- 80 ml de café noir\n- 20 ml de sirop de sucre\n- 30 ml de crème liquide",
+  preparation: "1. Verre résistant à la chaleur : whiskey, sirop, café.\n2. Fouetter légèrement la crème.\n3. Verser la crème à la cuillère."
+},
+"Spicy Martini": {
+  ingredients: "- 40 ml de Baileys Original\n- 30 ml de tequila Don Julio\n- 1 c. soupe de miel\n- Confit de piment (sirop sucre + piment, 15–20 min)",
+  preparation: "1. Préparer le confit de piment et laisser refroidir.\n2. Refroidir un verre à martini.\n3. Shaker Baileys, tequila, miel sur glace.\n4. Verser et décorer avec le confit."
+},
+"Matcha Latte": {
+  ingredients: "- 50 ml de Baileys Original\n- 2 c. café de matcha\n- 20–40 ml d’eau chaude (≈80°)\n- 150 ml de lait",
+  preparation: "1. Fouetter le matcha dans l’eau.\n2. Mousser le lait.\n3. Assembler matcha, Baileys, lait. Décorer."
+}};
 
   // Rendu
   (function render(){
@@ -152,15 +296,28 @@
       .split(/\r?\n|•|;|,/).map(s=>s.replace(/^[-–•\s]+/,'').trim()).filter(Boolean);
     ingEl.innerHTML = items.length ? items.map(i=>`<li>${i}</li>`).join('') : '<li>—</li>';
 
-    // Préparation
-    const rawPrep = String(rec.preparation || '').replace(/[\u2028\u2029]/g,'\n').replace(/\r\n?/g,'\n').trim();
-    let parts = rawPrep.split(/\n+/).map(s=>s.replace(/^\s*\d+\.\s*/,'').trim()).filter(Boolean);
-    if (parts.length <= 1) parts = rawPrep.split(/(?<=[\.!?])\s+/).map(s=>s.replace(/^\s*\d+\.\s*/,'').trim()).filter(Boolean);
-    prepEl.innerHTML = parts.length <= 1 ? (parts[0] || '—') : parts.map((t,i)=>`${i+1}. ${t}`).join('<br>');
+    // Préparation (toujours écrire le DOM)
+const rawPrep = String(rec.preparation || '')
+.replace(/[\u2028\u2029]/g,'\n').replace(/\r\n?/g,'\n').trim();
+let parts = rawPrep.split(/\n+/)
+ .map(s=>s.replace(/^\s*\d+\.\s*/,'').trim())
+    .filter(Boolean);
+ if (parts.length <= 1) {
+    parts = rawPrep.split(/(?<=[\.!?])\s+/)
+      .map(s=>s.replace(/^\s*\d+\.\s*/,'').trim())
+      .filter(Boolean);
+  }
+  prepEl.innerHTML = parts.length
+    ? parts.map((t,i)=>`${i+1}. ${t}`).join('<br><br>')
+    : '—';
 
     // Image (jpg/png/webp -> placeholder -> emoji)
-    const s = slug(key);
-    const candidates = [`img/recipes/${s}.jpg`,`img/recipes/${s}.png`,`img/recipes/${s}.webp`];
+const s = slug(key);
+const candidates = [
+  `recipes/${s}.jpg`,
+  `recipes/${s}.png`,
+  `recipes/${s}.webp`
+];
     let i = 0;
     function showEmoji(){
       imgEl.style.display='none';
@@ -185,11 +342,18 @@
   })();
 
   // Boutons
-  const QUIZ_URL = 'index.html';
+const QUIZ_URL = 'index.html';
   const backBtn  = document.getElementById('backBtn');
   const againBtn = document.getElementById('againBtn');
-  backBtn.onclick  = ()=> document.referrer ? history.back() : location.assign(QUIZ_URL);
-  againBtn.onclick = ()=> { localStorage.removeItem('selectedCocktail'); location.assign(QUIZ_URL); };
+
+  // Retour : on renvoie toujours vers #quiz pour déclencher la restauration
+  backBtn.onclick = () => { location.href = QUIZ_URL + '#quiz'; };
+
+  // Recommencer : on efface l’état mémorisé et on revient à l’accueil
+  againBtn.onclick = () => {
+    try { sessionStorage.removeItem('ldr_quiz_state'); } catch(_){}
+    location.assign(QUIZ_URL);
+  };
 </script>
 </body>
 </html>
